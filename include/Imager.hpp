@@ -1,5 +1,6 @@
 #pragma once
 
 #include <cstdint>
+#include "./Scene.hpp"
 
-void makeImage(uint8_t* pixels, int width, int height);
+Scene myScene(int width, int height);

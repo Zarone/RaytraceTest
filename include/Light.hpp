@@ -5,8 +5,10 @@
 class Light 
 {
 private:
-  Vector3* pos;
+  Vector3 intensity;
+  Vector3 pos;
 public:
-  float intensity;
-  Light(float intensity, Vector3* pos): intensity(intensity), pos(pos) {};
+  Light(Vector3 intensity, Vector3 pos): intensity(intensity), pos(pos) {};
+  Vector3 getPos() { return pos; }
+  Vector3 getIntensity() { return intensity; }
 };

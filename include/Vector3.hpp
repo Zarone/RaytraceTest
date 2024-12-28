@@ -6,10 +6,11 @@
 class Vector3
 {
 private:
+public:
   float x;
   float y;
   float z;
-public:
+
   Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
 
   Vector3 cross(const Vector3& vec);

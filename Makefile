@@ -1,4 +1,4 @@
-no_dep_objects = ./obj/Imager.o ./obj/Material.o ./obj/Sphere.o ./obj/Vector3.o
+no_dep_objects = ./obj/Imager.o ./obj/Material.o ./obj/Sphere.o ./obj/Vector3.o ./obj/Scene.o ./obj/Object.o
 
 main: ./obj/Renderer.o ./src/main.cpp $(no_dep_objects)
 	g++ ./src/main.cpp ./obj/Renderer.o $(no_dep_objects) -o ./build/open_window \
@@ -10,7 +10,7 @@ main: ./obj/Renderer.o ./src/main.cpp $(no_dep_objects)
 		`sdl2-config --libs --cflags` -ggdb3 -O0 -Wall \
 		-I/Users/zacharya/Library/Frameworks/SDL2.framework/Headers -F/Users/zacharya/Library/Frameworks -framework SDL2
 
-$(no_dep_objects): ./obj/%.o: src/%.cpp
+$(no_dep_objects): ./obj/%.o: src/%.cpp include/%.hpp
 	g++ -c -o $@ $<
 
 .PHONY:

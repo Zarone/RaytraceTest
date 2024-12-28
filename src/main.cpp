@@ -4,8 +4,8 @@
 #include "../include/Renderer.hpp"
 #include "../include/Imager.hpp"
 
-#define WIDTH 500
-#define HEIGHT 500
+#define WIDTH 200
+#define HEIGHT 200
 
 int main(int argc, char **argv) {
 
@@ -13,11 +13,12 @@ int main(int argc, char **argv) {
 
   // array of pixels
   uint8_t pixels[WIDTH * HEIGHT * 4] = {0};
-  makeImage(pixels, WIDTH, HEIGHT);
+  Scene s = myScene(WIDTH, HEIGHT);
+  s.makeImage(pixels);
 
   myRenderer.sendPixelsToRenderer(pixels);
   myRenderer.render();
-  myRenderer.keepOpen();
+  myRenderer.keepOpen(s);
 
   return 0;
 }

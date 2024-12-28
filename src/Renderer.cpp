@@ -72,13 +72,38 @@ void Renderer::render() {
   std::cout << "Finished Rendering" << std::endl;
 }
 
-void Renderer::keepOpen() {
+void Renderer::keepOpen(Scene s) {
   bool closing = false;
   SDL_Event e;
   while (!closing) {
     while (SDL_PollEvent(&e) != 0) {
       if (e.type == SDL_QUIT) {
         closing = true;
+      } else if (e.type == SDL_MOUSEBUTTONDOWN) {
+        int x = e.button.x;
+        int y = e.button.y;
+
+        std::cout << e.button.x << ", " << e.button.y << std::endl;
+        
+        // coordinates on lens
+        float u = s.l + (s.r-s.l)*(x+0.5)/width;
+        float v = s.t + (s.b-s.t)*(y+0.5)/height;
+        
+        // math setup
+        Vector3 basis_w = Vector3(1, 0, 0);
+
+        Vector3 basis_u = s.up.cross(basis_w);
+        basis_u = basis_u.divide_by(basis_u.magnitude());
+
+        Vector3 basis_v = basis_w.cross(basis_u);
+
+        Vector3 uu = basis_u.multiply_by(u);
+        Vector3 vv = basis_v.multiply_by(v);
+
+        Vector3 ww = basis_w.multiply_by(-s.focalLength);
+        Vector3 rayDirection = ww.add(uu).add(vv);
+
+        std::cout << "Collission: " << s.collissionCheckAll(rayDirection, s.cameraPosition, NULL, NULL) << std::endl;
       }
     }
   }

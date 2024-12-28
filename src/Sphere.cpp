@@ -1,11 +1,20 @@
 #include "../include/Sphere.hpp"
-#include <iostream>
 
-Sphere::Sphere(float radius, Material* mat, Vector3* center): radius(radius), mat(mat), center(center) {}
+Sphere::Sphere(float radius, Material mat, const Vector3& center): 
+  Object(mat), 
+  radius(radius), 
+  center(center) 
+{
+}
+
+Sphere::Sphere(const Sphere& other) : Object(other.mat), radius(other.radius), center(other.center) {
+}
+
 
 bool Sphere::collissionCheck(Vector3 dir, Vector3 origin, float* hitTime) {
+
   // check discriminant
-  Vector3 originMinusCenter = origin - *this->center;
+  Vector3 originMinusCenter = origin - this->center;
 
   float discriminant = pow(dir.dotProduct(originMinusCenter), 2) 
      - (
@@ -32,5 +41,10 @@ bool Sphere::collissionCheck(Vector3 dir, Vector3 origin, float* hitTime) {
     }
 
   }
+}
 
+Vector3 Sphere::getNormal(Vector3 point) {
+  Vector3 n = (point - this->center);
+  n = n.divide_by(this->radius);
+  return n;
 }
