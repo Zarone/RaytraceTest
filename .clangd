@@ -1,0 +1,7 @@
+CompileFlags:
+  Add: [-I/Users/zacharya/Library/Frameworks/SDL2.framework/Headers,
+        -F/Users/zacharya/Library/Frameworks,
+        -framework, SDL2,
+        -Wall,
+        -ggdb3,
+        -O0]
